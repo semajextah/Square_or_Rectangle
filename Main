@@ -1,0 +1,145 @@
+class Point
+    def initialize
+        @x = 0
+        @y = 0
+    end
+   
+    def getX
+        @x
+    end
+   
+    def getY
+        @y
+    end
+   
+    def x= (z)
+        @x=z
+    end
+   
+   
+    def y= (z)
+        @y=z
+    end
+   
+    def getDistance(otherPoint)
+       
+        Math.sqrt((getX-otherPoint.getX)**2 + (getY-otherPoint.getY)**2)
+     
+    end
+
+   
+end
+######################################Rectangle
+class Rectangle 
+    #attr_reader :upperLeft, :lowerRight
+    #attr_writer :upperLeft, :lowerRight
+ 
+    
+    def initialize (upperLeft, lowerRight)
+        @upperLeft = upperLeft
+        @lowerRight = lowerRight
+    end
+   
+    def getUpperLeft
+        @upperLeft
+    end
+   
+    def getLowerRight
+        @lowerRight
+    end
+   
+    def setUpperLeft=(z)
+        
+       @upperLeft = z
+       
+    end
+   
+    def setLowerRight=(z)
+        
+       @lowerRight = z
+       
+    end
+   
+    def perimeter
+        ((getLowerRight.getX - getUpperLeft.getX) + (getUpperLeft.getY - getLowerRight.getY)) *2
+    end
+    
+    def getArea
+        (getLowerRight.getX - getUpperLeft.getX) * (getUpperLeft.getY - getLowerRight.getY)
+    end
+    
+    def isSquare
+        if (getLowerRight.getX() - getUpperLeft.getX()) == ( getUpperLeft.getY() - getLowerRight.getY())  
+                return true;
+        else
+                return false;
+        end
+    end
+    
+    def contains(secondPoint)
+        if( (secondPoint.getX() > getUpperLeft.getX()) && (secondPoint.getX() < getLowerRight.getX()) && (secondPoint.getY() < getUpperLeft.getY()) && (secondPoint.getY() > getLowerRight.getY()) )
+                return true;
+            else
+                return false;
+        end
+    end
+    
+    def intersects(secondRectangle)
+        if(secondRectangle.getUpperLeft.getX() > getLowerRight.getX() || getUpperLeft.getX() > secondRectangle.getLowerRight.getX() || secondRectangle.getUpperLeft.getY() < getLowerRight.getY() ||
+                    getUpperLeft.getY() < secondRectangle.getLowerRight.getY())
+                return false;
+            else
+                return true;
+        end
+        
+    end
+    
+    
+end
+
+######################################"Main"
+
+upperLeft1 = Point.new
+
+upperLeft1.x=(1.0)
+upperLeft1.y=(9.0)
+
+lowerRight1 = Point.new
+lowerRight1.x=(5.0)
+lowerRight1.y=(6.0)
+###################################### second Rectangle
+upperLeft2 = Point.new
+
+upperLeft2.x=(4.0)
+upperLeft2.y=(10.0)
+
+lowerRight2 = Point.new
+lowerRight2.x=(9.0)
+lowerRight2.y=(5.0)
+
+
+a = Rectangle.new(upperLeft1,lowerRight1)
+
+b = Rectangle.new(upperLeft2,lowerRight2)
+
+
+###################################### OUTPUT
+puts "the perimeter of the first rectangle is: #{a.perimeter}"
+puts "the perimeter of the second rectangle is: #{b.perimeter}"
+
+puts "the area of the first rectangle is: #{a.getArea}"
+puts "the perimeter of the second rectangle is: #{b.getArea}"
+
+
+
+puts "The first rectangle is square: #{a.isSquare}"
+puts "The second rectangle is square: #{b.isSquare}"
+
+
+puts "The distance between the two upper left points is: #{a.getUpperLeft.getDistance(b.getUpperLeft)}"
+puts "The distance between the two lower right points is: #{a.getLowerRight.getDistance(b.getLowerRight)}"
+
+puts "The first Rectangle contains the upper left point from the second rectangle: #{a.contains(b.getUpperLeft)}"
+puts "The first Rectangle contains the lower right point from the second rectangle: #{a.contains(b.getLowerRight)}"
+
+puts "The second Rectangle contains the lower right point from the second rectangle: #{a.intersects(b)}"
